@@ -34,6 +34,49 @@ async fn welcome(session: Session, req: HttpRequest) -> Result<HttpResponse> {
         .body(include_str!("../static/welcome.html")))
 }
 
+/* handlers for various cats */
+#[get("/firstcat")]
+async fn firstcat(_session: Session, req: HttpRequest) -> Result<HttpResponse> {
+    println!("{:?}", req);
+
+    // response
+    Ok(HttpResponse::build(StatusCode::OK)
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../static/firstcat.html")))
+}
+
+#[get("/secondcat")]
+async fn secondcat(_session: Session, req: HttpRequest) -> Result<HttpResponse> {
+    println!("{:?}", req);
+
+    // response
+    Ok(HttpResponse::build(StatusCode::OK)
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../static/secondcat.html")))
+}
+
+#[get("/thirdcat")]
+async fn thirdcat(_session: Session, req: HttpRequest) -> Result<HttpResponse> {
+    println!("{:?}", req);
+
+    // response
+    Ok(HttpResponse::build(StatusCode::OK)
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../static/thirdcat.html")))
+}
+
+#[get("/ceilingcat")]
+async fn ceilingcat(_session: Session, req: HttpRequest) -> Result<HttpResponse> {
+    println!("{:?}", req);
+
+    // response
+    Ok(HttpResponse::build(StatusCode::OK)
+        .content_type("text/html; charset=utf-8")
+        .body(include_str!("../static/firstcat.html")))
+}
+
+/* end handlers for cats */
+
 /// 404 handler
 async fn p404() -> Result<fs::NamedFile> {
     Ok(fs::NamedFile::open("static/404.html")?.set_status_code(StatusCode::NOT_FOUND))
@@ -73,6 +116,11 @@ async fn main() -> io::Result<()> {
         .wrap(middleware::Logger::default())
         // register simple route, handle all methods
         .service(welcome)
+        // register other routes
+        .service(firstcat)
+        .service(secondcat)
+        .service(thirdcat)
+        .service(ceilingcat)
         // with path parameters
         .service(web::resource("/user/{name}").route(web::get().to(with_param)))
         // async response body
