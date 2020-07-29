@@ -1,3 +1,5 @@
+# h/t https://shaneutt.com/blog/rust-fast-small-docker-image-builds/
+# for the original source of this
 # ------------------------------------------------------------------------------
 # Cargo Build Stage
 # ------------------------------------------------------------------------------
